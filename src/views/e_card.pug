@@ -1,0 +1,46 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+    link(rel="stylesheet", href="/public/css/e_card.css")
+    title E-CARD
+  body 
+    header
+      h1 E-CARD
+      small Does not support IE and Edge browsers.
+    main 
+      div#welcome.active
+        h2 Top Page
+        h4 Available rooms 
+        ul#roomList
+        form
+          span Nickname
+          input#topNickname(type="text", placeholder="Enter nickname", required)
+          span Room
+          input#roomName(type="text", placeholder="Enter the room name you want to create / join.", required)
+          div.btnWrapper
+            button.create(type="button") Create
+            button.searchJoin(type="button") Join
+      div#streamWrapper
+        h3 Room
+        video#myStream(autoplay, playsinline, width="400", height="400")
+        video#peerStream(autoplay, playsinline, width="400", height="400")
+        select#cameras
+        div#btnWrapper
+          button#mute Mute
+          button#camera Camera Off
+        ol#messageList
+        form#messageForm
+          span Nickname
+          input#roomNickname(type="text", placeholder="Type nickname.", required)
+          span Message
+          input#message(type="text", placeholder="Type message", required)
+          div.btnWrapper
+            button.send(type="submit") Send
+            button.leave(type="button") Leave
+      div#error
+    script(src="/socket.io/socket.io.js")
+    script(src="/public/js/e_card.js")

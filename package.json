@@ -1,0 +1,33 @@
+{
+  "name": "mini_rtc",
+  "version": "1.0.0",
+  "description": "WebRTC w/ Web Sockets",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tyomhk2015/mini_rtc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tyomhk2015/mini_rtc/issues"
+  },
+  "homepage": "https://github.com/tyomhk2015/mini_rtc#readme",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/node": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "@socket.io/admin-ui": "^0.2.0",
+    "express": "^4.17.2",
+    "pug": "^3.0.2",
+    "socket.io": "^4.4.0",
+    "ws": "^8.4.0"
+  }
+}
