@@ -4,41 +4,57 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet", href="https://unpkg.com/mvp.css")
     link(rel="stylesheet", href="/public/css/e_card.css")
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
     title E-CARD
   body 
     header
       h1 E-CARD
-      small Does not support IE and Edge browsers.
+      small *Does not support IE browser.
     main 
       div#welcome.active
-        h2 Top Page
-        h4 Available rooms 
-        ul#roomList
+        h2 Lobby
         form
-          span Nickname
-          input#topNickname(type="text", placeholder="Enter nickname", required)
-          span Room
-          input#roomName(type="text", placeholder="Enter the room name you want to create / join.", required)
-          div.btnWrapper
+          dl.nicknameWrapper
+            dt Nickname
+            dd
+              input#topNickname(type="text", placeholder="Enter nickname", required)
+          dl.roomNameWrapper
+            dt Room
+            dd
+              input#roomName(type="text", placeholder="Enter room name", required)
+          div.roomBtnWrapper
             button.create(type="button") Create
             button.searchJoin(type="button") Join
+        div.roomListWrapper
+          h4 Available rooms 
+          ul#roomList
       div#streamWrapper
         h3 Room
-        video#myStream(autoplay, playsinline, width="400", height="400")
-        video#peerStream(autoplay, playsinline, width="400", height="400")
-        select#cameras
-        div#btnWrapper
-          button#mute Mute
-          button#camera Camera Off
+        div.videoWrapper
+          div.videoFrame
+            video#myStream(autoplay, playsinline)
+          div.videoFrame
+            video#peerStream(autoplay, playsinline)
+        div.cameraSelectionWrapper
+          p Current Camera Mode
+          select#cameras
+          div.cameraBtnWrapper
+            button#sound
+            button#camera
         ol#messageList
         form#messageForm
-          span Nickname
-          input#roomNickname(type="text", placeholder="Type nickname.", required)
-          span Message
-          input#message(type="text", placeholder="Type message", required)
-          div.btnWrapper
+          dl.nicknameWrapper
+            dt Nickname
+            dd
+              input#roomNickname(type="text", placeholder="Type nickname.", required)
+          dl.messageWrapper
+            dt Message
+            dd
+              input#message(type="text", placeholder="Type message", required)
+          div.chatBtnWrapper
             button.send(type="submit") Send
             button.leave(type="button") Leave
       div#error
