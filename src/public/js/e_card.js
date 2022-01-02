@@ -116,11 +116,19 @@ socket.on("ice", (icecandidate) => {
     myPeerConnection.addIceCandidate(icecandidate); // https://huchu.link/5vJyTCU
   }
 });
-socket.on("farewell", (payload, participants) => {
+socket.on("farewell", async (payload, participants) => {
+  // Make new connection ready for the the next guest.
+  peerStream.srcObject = null;
+  await initiateStream();
+
   updateUsersCount(participants);
   echoJoinMsg(payload.message);
 });
-socket.on("leave", (payload, participants) => {
+socket.on("leave", async (payload, participants) => {
+  // Make new connection ready for the the next guest.
+  peerStream.srcObject = null; // Remove Peer B's video screen.
+  await initiateStream();
+
   updateUsersCount(participants);
   echoJoinMsg(payload.message);
 });
@@ -179,7 +187,7 @@ function handleSendingMessage(event) {
   const msg = messageInput.value.trim();
   const chatObj = {nickname: roomNicknameInput.value, message: msg};
   const chatJSON = JSON.stringify({nickname: roomNicknameInput.value, message: msg});
-  if(myDataChannel) myDataChannel.send(chatJSON);
+  if(myDataChannel.readyState === "open") myDataChannel.send(chatJSON);
   addMessage(chatObj, true);
   messageInput.value = "";
 }
@@ -389,8 +397,10 @@ function leaveRoom() {
   myStream.getTracks().forEach((track) => {
     track.stop(); // https://huchu.link/l2Bfwax
   });
-  console.log(myPeerConnection);
   myPeerConnection.close();
+  myStream = null;
+  myPeerConnection = null;
+
 
   socket.emit("leave", roomName, nickname);
 }
