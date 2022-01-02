@@ -15,7 +15,7 @@ const searchJoinBtn = welcomeForm.querySelector(".searchJoin");
 const streamWrapper = document.getElementById('streamWrapper');
 const myStreamDOM = document.getElementById('myStream');
 const peerStream = document.getElementById('peerStream');
-const muteBtn = document.getElementById('mute');
+const muteBtn = document.getElementById('sound');
 const cameraBtn = document.getElementById('camera');
 const camerasSelect = document.getElementById('cameras');
 const messageList = document.getElementById('messageList');
@@ -126,7 +126,7 @@ socket.on("leave", (payload, participants) => {
 });
 socket.on("roomUpdate", (rooms) => {
   const subtitle = welcomeDOM.querySelector("h4");
-  subtitle.innerText = `Available rooms: ${rooms.length}`;
+  subtitle.innerText = `※ Available rooms: ${rooms.length}`;
   roomList.textContent = null;
 
   rooms.forEach((publicRoom) => {
@@ -147,15 +147,15 @@ socket.on("roomFull", (roomName) => {
 });
 
 // Event listener functions
-function handleMuteBtn() {
+function handleMuteBtn(event) {
   isMute = !isMute;
   toggleMic();
-  muteBtn.innerText  = isMute ? 'Unmute' : 'Mute';
+  isMute ? event.target.classList.add('muted') : event.target.removeAttribute('class');
 }
-function handleCameraBtn() {
+function handleCameraBtn(event) {
   isCameraOff = !isCameraOff;
   toggleCamera();
-  cameraBtn.innerText = isCameraOff ? 'Camera On' : 'Camera Off';
+  isCameraOff ? event.target.classList.add('off') : event.target.removeAttribute('class');
 }
 async function handleCameraChange() {
   await getMedia(camerasSelect.value);
@@ -307,19 +307,19 @@ function updateRooms(publicRoom) {
   roomList.appendChild(roomLine);
 }
 function updateUsersCount(participants) {
-  streamWrapper.querySelector("h3").innerHTML = `In Room : ${roomName} ( ${participants} / 2 )`;
+  streamWrapper.querySelector("h3").innerHTML = `Room : ${roomName} ( ${participants} / 2 )`;
 }
 function showErrorMsg(message) {
   const errorMsgDOM = welcomeDOM.querySelector('.notFound');
   if(errorMsgDOM) {
     errorMsgDOM.remove();
   };
-  const errorMsg = document.createElement("h4");
+  const errorMsg = document.createElement("p");
   errorMsg.innerText = message;
   errorMsg.classList.add('notFound');
 
-  const btnWrapper = document.querySelector('.btnWrapper');
-  btnWrapper.before(errorMsg);
+  const roomBtnWrapper = document.querySelector('.roomBtnWrapper');
+  roomBtnWrapper.before(errorMsg);
 }
 function validateForm(type) {
   let validationPassed = true;
@@ -358,7 +358,7 @@ async function showRoom(participants) {
   // Visualize hidden room
   streamWrapper.classList.add("active");
   const roomH3 = streamWrapper.querySelector("h3");
-  roomH3.innerHTML = roomName.trim().length !== 0 ? `In Room : ${roomName} ( ${participants} / 2 )` : 'In Room'
+  roomH3.innerHTML = roomName.trim().length !== 0 ? `Room : ${roomName} ( ${participants} / 2 )` : 'Room'
 
   // Update number of participants & show an initial message.
   if(participants) {
@@ -382,7 +382,7 @@ function leaveRoom() {
   welcomeDOM.classList.add("active");
 
   const roomH3 = streamWrapper.querySelector("h3");
-  roomH3.innerHTML = 'In Room';
+  roomH3.innerHTML = 'Room';
   messageList.textContent = null;
 
   // Remove tracks from the stream.

@@ -1,39 +1,100 @@
 @charset "utf-8";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 1.2px;
+}
 ol,
 ul {
-  padding: 0;
   list-style-type: none;
 }
-
-#messageList,
-#roomList,
-#notice {
-  border: 1px solid rgb(85, 85, 85);
-  border-radius: 5px;
-  box-shadow: rgba(187, 187, 187, 0.125) 2px 2px 10px 0px;
-  height: 30vh;
-  max-width: 800px;
-  overflow-y: auto;
-  padding: 24px;
+body {
+  color: #333;
+  font-family: 'PT Serif', serif;
+  line-height: 1.5;
 }
 
-#roomList {
-  height: 20vh;
+/* Body*/
+main {
+  padding: 24px 12px;
+}
+
+header {
+  background-color: #1577f2;
+  box-shadow: 0 2px 2px 1px rgba(0 0 0 / 0.2);
+  padding: 12px;
+  text-align: center;
+  position: relative;
+}
+
+header > small {
+  display: none;
+  position: absolute;
+}
+
+header:hover > small {
+  display: block;
+  bottom: 4px;
+  right: 8px;
+}
+
+h1 {
+  color: white;
+}
+
+button {
+  box-shadow: 0px 1px 1px 1px rgb(0 0 0 / 20%);
+  cursor: pointer;
+}
+
+#welcome {
+  display: flex;
+  margin: 24px auto 0;
+  max-width: 768px;
+  min-width: 296px;
+}
+
+#welcome > h2 {
+  text-align: center;
+}
+
+#welcome > form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#welcome > form > dl > dt {
+  text-align: center;
+  min-width: 80px;
+}
+
+#roomList,
+#messageList {
+  box-shadow: 0 0 8px rgba(0 0 0 / 20%);
+  border-radius: 8px;
+  height: 36vh;
+  overflow: auto;
+  padding: 8px;
 }
 
 #roomList > li {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
   font-weight: bold;
-  padding: 0 0.5rem;
+  padding: 8px 8px;
 }
 
 #roomList > li:hover {
-  background-color: #888;
-  border-radius: 5px;
+  background-color: #DDD;
 }
 
 #roomList > li > span:last-of-type {
   font-weight: normal;
-  margin-left: 1rem;
+  margin-left: 12px;
 }
 
 #messageList > li {
@@ -41,11 +102,9 @@ ul {
 }
 
 #messageList > li > small {
+  font-size: 10px;
   font-weight: normal;
-}
-
-#messageList > li.mine::before {
-  content: "▶ ";
+  margin-left: 8px;
 }
 
 #room,
@@ -60,36 +119,29 @@ ul {
   display: block;
 }
 
+/* inputs */
+#topNickname,
+#roomNickname,
 #roomName,
 #message {
-  width: 90%;
+  border: 0;
+  border-bottom: 2px solid #F0F0EE;
+  padding: 8px;
+  margin-left: 20px;
+  text-align: center;
+}
+#topNickname::placeholder,
+#roomNickname::placeholder,
+#roomName::placeholder,
+#message::placeholder {
+  color: #CCC;
 }
 
-#notice {
-  background-color: #333;
-  height: auto;
-  max-width: 300px;
-  overflow-y: unset;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-#notice > ul {
-  list-style-type: square;
-  padding-left: 1rem;
-}
-
-#noticeHeader {
-  position: relative;
-}
-
-#noticeHeader > .closeBtn {
-  position: absolute;
-  top: -36px;
-  right: -16px;
-  padding: 1rem;
-  cursor: pointer;
+.nicknameWrapper,
+.roomNameWrapper,
+.messageWrapper {
+  align-items: center;
+  display: flex;
 }
 
 .mine {
@@ -97,36 +149,312 @@ ul {
   font-weight: bold;
 }
 
-.leave,
-.searchJoin {
-  background-color: salmon;
-  border: 2px solid salmon;
-  color: white;
-  margin-left: 20px;
+.roomBtnWrapper {
+  display: flex;
 }
 
-.searchJoin {
-  background-color: teal;
-  border: 2px solid teal;
+.roomBtnWrapper > button:nth-of-type(2) {
+  margin-left: 12px;
+}
+
+.create,
+.searchJoin,
+.leave,
+.send {
+  border-radius: 4px;
+  color: white;
+  padding: 16px 32px;
+  width: 120px;
+}
+
+.create {
+  background-color: #FFF;
+  border: 1px solid #333;
+  color: #333;
+}
+
+.create:hover {
+  box-shadow: 0px 1px 1px 1px #e7f1fd;
+  background-color: #e7f1fd;
+  border: 1px solid #e7f1fd;
+  color: #333;
+}
+
+.searchJoin,
+.send {
+  background-color: #0e72ed;
+  border: 2px solid #0e72ed;
+}
+
+.searchJoin:hover,
+.send:hover {
+  background-color: #0a4996;
+  border: 2px solid #0a4996;
+}
+
+.create,
+.searchJoin,
+.roomJoin {
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .roomJoin,
 .roomFull {
-  background-color: rgb(47, 255, 203);
-  border: 2px solid rgb(47, 255, 203);
-  color: black;
-  margin-right: 20px;
+  background-color: #739bcc;
+  border: 2px solid #739bcc;
+  border-radius: 4px;
+  color: white;
+  margin-right: 12px;
   padding: 0.5rem 1rem;
+}
+
+.roomJoin:hover {
+  background-color: #0e72ed;
+  border: 2px solid #0e72ed;
 }
 
 .roomFull {
   background-color: crimson;
   border: 2px solid crimson;
-  color: white;
+  font-weight: bold;
+  cursor: unset;
 }
-
 
 .notFound {
   color: red;
-  font-weight: bold;
+}
+
+.roomListWrapper {
+  border-top: 2px solid #DDD;
+  margin-top: 24px;
+  padding-top: 20px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar,
+#roomList::-webkit-scrollbar,
+#messageList::-webkit-scrollbar {
+  width:8px;
+}
+::-webkit-scrollbar-track,
+#roomList::-webkit-scrollbar-track,
+#messageList::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb,
+#roomList::-webkit-scrollbar-thumb,
+#messageList::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+::-webkit-scrollbar-thumb:hover,
+#roomList::-webkit-scrollbar-thumb:hover,
+#messageList::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* streaming */
+#streamWrapper {
+  max-width: 1024px;
+  margin: 24px auto 0;
+}
+
+#streamWrapper > h3 {
+  text-align: center;
+}
+
+.videoWrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.videoFrame {
+  width: calc(50% - 4px);
+}
+
+.videoFrame > video {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+}
+
+#myStream {
+  border-radius: 4px;
+}
+
+.cameraSelectionWrapper {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#cameras {
+  border: 0;
+  border-bottom: 2px solid #F0F0EE;
+  padding: 8px;
+  margin-left: 20px;
+}
+
+#cameras:focus-visible {
+  border: 0;
+}
+
+.cameraBtnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: 24px;
+}
+
+.cameraBtnWrapper > button {
+  appearance: none;
+  background-color: unset;
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: unset;
+  border-radius: 50%;
+  box-shadow: unset;
+  height: 24px;
+  padding: 20px;
+  width: 24px;
+}
+
+.cameraBtnWrapper > button:hover {
+  background-color: #e7f1fd;
+}
+
+.cameraBtnWrapper > #sound {
+  background-image: url(/public/img/volOn.png);
+}
+
+.cameraBtnWrapper > #sound.muted {
+  background-image: url(/public/img/volOff.png);
+}
+
+.cameraBtnWrapper > #camera {
+  background-image: url(/public/img/camOn.png);
+  margin-left: 12px;
+}
+
+.cameraBtnWrapper > #camera.off {
+  background-image: url(/public/img/camOff.png);
+}
+
+#messageList > li {
+  padding: 8px;
+}
+
+.chatBtnWrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#messageForm dt {
+  min-width: 80px;
+}
+
+.messageWrapper #message {
+  width: 80vw;
+}
+
+.leave {
+  background-color: #fa8072;
+  border: 2px solid #fa8072;
+}
+
+.leave:hover {
+  background-color: #b14135;
+  border: 2px solid #b14135;
+}
+
+/* margin */
+#welcome > h4,
+#welcome > form,
+#welcome > form > dl,
+.notFound,
+.cameraSelectionWrapper {
+  margin-top: 12px;
+}
+
+.roomBtnWrapper,
+.videoWrapper,
+#roomList,
+#messageList,
+.chatBtnWrapper,
+#messageForm {
+  margin-top: 24px;
+}
+
+@media (max-width: 414px) {
+  header > h1 {
+    font-size: 20px;
+  }
+
+  header:hover > small {
+    font-size: 10px;
+    bottom: 0;
+    right: 0;
+}
+
+  main {
+    padding: 12px 12px;
+  }
+
+  #welcome > h2 {
+    font-size: 16px;
+  }
+
+  #welcome > form > dl {
+    font-size: 14px;
+  }
+  
+  .notFound {
+    font-size: 10px;
+  }
+
+  #messageList > li {
+    font-size: 12px;
+  }
+  .cameraBtnWrapper {
+    margin-top: 12px;
+  }
+
+  .cameraSelectionWrapper > #cameras,
+  .cameraSelectionWrapper > .cameraBtnWrapper {
+    margin-left: 0;
+  }
+
+  .nicknameWrapper #roomNickname,
+  .messageWrapper #message {
+    width: 100%;
+  }
+
+  /* margin */
+  #topNickname,
+  #roomNickname,
+  #roomName,
+  #message {
+    margin-left: 12px;
+  }
+
+  #welcome > h4,
+  #welcome > form,
+  #welcome > form > dl,
+  .notFound,
+  .cameraSelectionWrapper {
+    margin-top: 6px;
+  }
+
+  #welcome,
+  .roomBtnWrapper,
+  .videoWrapper,
+  #roomList,
+  #streamWrapper,
+  #messageList,
+  .chatBtnWrapper,
+  #messageForm {
+    margin-top: 12px;
+  }
 }
